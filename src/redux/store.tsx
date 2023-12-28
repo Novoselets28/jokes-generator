@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import memeReducer from './memeReducer';
+import memeReducer from './ducks/memeReducer';
 
 const store = configureStore({
   reducer: {

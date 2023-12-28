@@ -10,12 +10,12 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
 
-import { setTopText, setBottomText, setRandomImage } from '../redux/memeReducer';
+import { setTopText, setBottomText, setRandomImage, MemeState } from '../redux/ducks/memeReducer';
 
-const Meme = () => {
+const Meme: React.FC = () => {
   const dispatch = useDispatch();
-  const meme = useSelector((state) => state.meme);
-  const [allMemes, setAllMemes] = useState([]);
+  const meme = useSelector((state: { meme: MemeState }) => state.meme);
+  const [allMemes, setAllMemes] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,19 +27,17 @@ const Meme = () => {
         console.error('Error fetching memes:', error);
       }
     };
-  
+
     fetchData();
-  
   }, []);
-  
 
   const getMemeImage = () => {
     const randomNumber = Math.floor(Math.random() * allMemes.length);
-    const url = allMemes[randomNumber].url;
+    const url = allMemes[randomNumber]?.url || '';
     dispatch(setRandomImage(url));
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     if (name === 'topText') {
       dispatch(setTopText(value));

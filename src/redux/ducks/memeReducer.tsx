@@ -1,12 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+export interface MemeState {
+  topText: string;
+  bottomText: string;
+  randomImage: string;
+}
+
 const memeSlice = createSlice({
   name: 'meme',
   initialState: {
     topText: '',
     bottomText: '',
     randomImage: 'https://i.imgflip.com/1bij.jpg'
-  },
+  } as MemeState,
   reducers: {
     setTopText: (state, action) => {
       state.topText = action.payload;
@@ -15,7 +21,6 @@ const memeSlice = createSlice({
       state.bottomText = action.payload;
     },
     setRandomImage: (state, action) => {
-      console.log('setRandomImage action:', action);
       state.randomImage = action.payload;
     }
   }
